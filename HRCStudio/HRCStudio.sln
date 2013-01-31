@@ -1,0 +1,108 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{40B364CD-9C10-4460-AAD5-F4F905BE179C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationServer", "ApplicationServer", "{0A7DC76E-9038-4423-B090-7967B0786D7C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RnD", "RnD", "{901A56F3-E853-455A-8776-B1143558586C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRC.Library", "HRC.Library\HRC.Library.csproj", "{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRC.Foundation", "HRC.Foundation\HRC.Foundation.csproj", "{C1291A87-266E-40BD-8D1D-E5A1B3C495B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HAL9000Test", "HAL9000Test\HAL9000Test.csproj", "{C957F848-729D-4CDC-8CDD-2072DF7D4418}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTextLogger", "MyTextLogger\MyTextLogger.csproj", "{49BDFF5F-CFAB-4EEF-A147-8735632B79C8}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccLocalPath0 = .
+		SccLocalPath1 = HAL9000Test
+		SccLocalPath2 = HRC.Foundation
+		SccLocalPath3 = HRC.Library
+		SccLocalPath4 = HRC.Library.LoggerPlugins
+		SccLocalPath5 = MyTextLogger
+		SccNumberOfProjects = 6
+		SccProjectName1 = HAL9000Test
+		SccProjectName2 = HRC.Foundation
+		SccProjectName3 = HRC.Library
+		SccProjectName4 = HRC.Library.LoggerPlugins
+		SccProjectName5 = MyTextLogger
+		SccProjectTopLevelParentUniqueName1 = HRCStudio.sln
+		SccProjectTopLevelParentUniqueName2 = HRCStudio.sln
+		SccProjectTopLevelParentUniqueName3 = HRCStudio.sln
+		SccProjectTopLevelParentUniqueName4 = HRCStudio.sln
+		SccProjectTopLevelParentUniqueName5 = HRCStudio.sln
+		SccProjectUniqueName1 = HAL9000Test\\HAL9000Test.csproj
+		SccProjectUniqueName2 = HRC.Foundation\\HRC.Foundation.csproj
+		SccProjectUniqueName3 = HRC.Library\\HRC.Library.csproj
+		SccProjectUniqueName4 = HRC.Library.LoggerPlugins\\HRC.Library.LoggerPlugins.csproj
+		SccProjectUniqueName5 = MyTextLogger\\MyTextLogger.csproj
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs23
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49BDFF5F-CFAB-4EEF-A147-8735632B79C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49BDFF5F-CFAB-4EEF-A147-8735632B79C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49BDFF5F-CFAB-4EEF-A147-8735632B79C8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{49BDFF5F-CFAB-4EEF-A147-8735632B79C8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{49BDFF5F-CFAB-4EEF-A147-8735632B79C8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{49BDFF5F-CFAB-4EEF-A147-8735632B79C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49BDFF5F-CFAB-4EEF-A147-8735632B79C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49BDFF5F-CFAB-4EEF-A147-8735632B79C8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{49BDFF5F-CFAB-4EEF-A147-8735632B79C8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{49BDFF5F-CFAB-4EEF-A147-8735632B79C8}.Release|x86.ActiveCfg = Release|Any CPU
+		{C1291A87-266E-40BD-8D1D-E5A1B3C495B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1291A87-266E-40BD-8D1D-E5A1B3C495B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1291A87-266E-40BD-8D1D-E5A1B3C495B8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C1291A87-266E-40BD-8D1D-E5A1B3C495B8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C1291A87-266E-40BD-8D1D-E5A1B3C495B8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C1291A87-266E-40BD-8D1D-E5A1B3C495B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1291A87-266E-40BD-8D1D-E5A1B3C495B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1291A87-266E-40BD-8D1D-E5A1B3C495B8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C1291A87-266E-40BD-8D1D-E5A1B3C495B8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C1291A87-266E-40BD-8D1D-E5A1B3C495B8}.Release|x86.ActiveCfg = Release|Any CPU
+		{C957F848-729D-4CDC-8CDD-2072DF7D4418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C957F848-729D-4CDC-8CDD-2072DF7D4418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C957F848-729D-4CDC-8CDD-2072DF7D4418}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C957F848-729D-4CDC-8CDD-2072DF7D4418}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C957F848-729D-4CDC-8CDD-2072DF7D4418}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C957F848-729D-4CDC-8CDD-2072DF7D4418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C957F848-729D-4CDC-8CDD-2072DF7D4418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C957F848-729D-4CDC-8CDD-2072DF7D4418}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C957F848-729D-4CDC-8CDD-2072DF7D4418}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C957F848-729D-4CDC-8CDD-2072DF7D4418}.Release|x86.ActiveCfg = Release|Any CPU
+		{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{49BDFF5F-CFAB-4EEF-A147-8735632B79C8} = {901A56F3-E853-455A-8776-B1143558586C}
+		{C1291A87-266E-40BD-8D1D-E5A1B3C495B8} = {40B364CD-9C10-4460-AAD5-F4F905BE179C}
+		{C957F848-729D-4CDC-8CDD-2072DF7D4418} = {901A56F3-E853-455A-8776-B1143558586C}
+		{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB} = {0A7DC76E-9038-4423-B090-7967B0786D7C}
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+		Svn-Managed = True
+	EndGlobalSection
+EndGlobal

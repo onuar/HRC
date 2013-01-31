@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Entity Name="Log" TableName="Logs">
+  <EntityColumns>
+    <Column Name="Id" ColumnName="Id" Type="INT" Size="4" IsIdentity="true"  IsPrimary="true"  IsNull="false" />
+    <Column Name="OldValue" ColumnName="OldValue" Type="STRING" Size="5000" IsNull="true" />
+    <Column Name="NewValue" ColumnName="NewValue" Type="STRING" Size="5000" IsNull="true" />
+  </EntityColumns>
+</Entity>

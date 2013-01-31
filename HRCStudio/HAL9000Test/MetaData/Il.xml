@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity Name="Il" TableName="Iller">
+  <EntityColumns>
+    <Column Name="Id" ColumnName="Id" Type="INT" Size="4" IsIdentity="true"  IsPrimary="true"  IsNull="false" />
+    <Column Name="Ad" ColumnName="Ad" Type="STRING" Size="255" IsNull="true" />
+    <Column Name="Aktif" ColumnName="Aktif" Type="BOOLEAN" Size="1" IsNull="true" />
+  </EntityColumns>
+</Entity>
