@@ -18,6 +18,7 @@ namespace HRC.Foundation.LogLibrary
 
         public override string ToString()
         {
+            //TODO: transfer these literals to a constant or resource file.
             return string.Format("[OldValue: {0}] [CurrentValue: {1}]", OldValue, CurrentValue);
         }
     }
