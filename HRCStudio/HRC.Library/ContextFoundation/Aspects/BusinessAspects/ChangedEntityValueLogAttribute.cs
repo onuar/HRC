@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HRC.Foundation.ConvertionLibrary;
 using HRC.Foundation.LogLibrary;
-using HRC.Library.EntityLibrary.EntityBase;
-using HRC.Library.EntityLibrary.EntityOperations;
-using HRC.Library.EntityLibrary.EntitySchemaOperations;
+using HRC.Library.DatabaseObject.EntityLibrary.EntityBase;
 
 namespace HRC.Library.ContextFoundation.Aspects.BusinessAspects
 {
@@ -15,15 +10,12 @@ namespace HRC.Library.ContextFoundation.Aspects.BusinessAspects
         [WorksBefore]
         public int LogChangedValue(AspectContext context)
         {
-            BaseEntity entity = (BaseEntity)context.Method.Args[0];
+            var entity = (BaseEntity)context.Method.Args[0];
             Dictionary<string, EntityColumn> changedColumns = entity.GetChangedColumns();
             if (changedColumns.Count == 0)
                 return 0;
 
-            LogContext logContext = new LogContext();
-
-            logContext.EntityName = entity.EntityName;
-            logContext.TableName = entity.TableName;
+            var logContext = new LogContext {EntityName = entity.EntityName, TableName = entity.TableName};
 
             foreach (var c in changedColumns)
             {

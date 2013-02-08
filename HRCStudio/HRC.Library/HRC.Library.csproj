@@ -53,6 +53,30 @@
     <Compile Include="ContextFoundation\Aspects\WorksOnExceptionAttribute.cs" />
     <Compile Include="ContextFoundation\ProxyGenerator.cs" />
     <Compile Include="ContextFoundation\ProxyHelper.cs" />
+    <Compile Include="DatabaseObject\Attributes\ColumnAttribute.cs" />
+    <Compile Include="DatabaseObject\Attributes\NameAttribute.cs" />
+    <Compile Include="DatabaseObject\Attributes\PrimaryKeyAttribute.cs" />
+    <Compile Include="DatabaseObject\Attributes\TableNameAttribute.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\EntitySchemaOperations\EntitySchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\PocoSchemaOperations\PocoSchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\EntitySchema\ColumnCollectionSchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\EntitySchema\ColumnSchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\EntitySchema\SchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\Interfaces\IColumnCollectionSchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\Interfaces\IColumnSchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\Interfaces\IDatabaseObjectSchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\Interfaces\ISchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\PocoSchema\ColumnCollectionSchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\PocoSchema\ColumnSchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\PocoSchema\PocoAttributeHelper.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\PocoSchema\SchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaCollection.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaObjects\ColumnCollectionSchema.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaObjects\ColumnSchema.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\SchemaObjects\Schema.cs" />
+    <Compile Include="DatabaseObject\EntityLibrary\EntityBase\BaseEntity.cs" />
+    <Compile Include="DatabaseObject\EntityLibrary\EntityBase\EntityColumn.cs" />
+    <Compile Include="DatabaseObject\EntityLibrary\EntityOperations\EntityManager.cs" />
     <Compile Include="DBAccessLayer\DbManager.cs" />
     <Compile Include="DBAccessLayer\Factories\HRCDbFactory.cs" />
     <Compile Include="DBAccessLayer\Factories\HRCDbProvider.cs" />
@@ -64,14 +88,6 @@
     <Compile Include="DBAccessLayer\Parameters\HRCParameter.cs" />
     <Compile Include="DBAccessLayer\Parameters\HRCParameterOperator.cs" />
     <Compile Include="DBAccessLayer\Parameters\HRCParameterType.cs" />
-    <Compile Include="EntityLibrary\EntityBase\BaseEntity.cs" />
-    <Compile Include="EntityLibrary\EntityBase\EntityColumn.cs" />
-    <Compile Include="EntityLibrary\EntityOperations\EntityManager.cs" />
-    <Compile Include="EntityLibrary\EntitySchemaOperations\EntityColumnSchema.cs" />
-    <Compile Include="EntityLibrary\EntitySchemaOperations\EntityColumnsSchema.cs" />
-    <Compile Include="EntityLibrary\EntitySchemaOperations\EntitySchema.cs" />
-    <Compile Include="EntityLibrary\EntitySchemaOperations\EntitySchemaBuilder.cs" />
-    <Compile Include="EntityLibrary\EntitySchemaOperations\EntitySchemaList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
