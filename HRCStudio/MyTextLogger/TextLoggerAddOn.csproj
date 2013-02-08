@@ -7,8 +7,8 @@
     <ProjectGuid>{49BDFF5F-CFAB-4EEF-A147-8735632B79C8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyTextLogger</RootNamespace>
-    <AssemblyName>MyTextLogger</AssemblyName>
+    <RootNamespace>TextLoggerAddOn</RootNamespace>
+    <AssemblyName>TextLoggerAddOn</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

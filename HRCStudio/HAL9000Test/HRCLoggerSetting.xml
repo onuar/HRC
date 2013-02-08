@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <loggers>
   <logger TypeName ="HRC.Library.ContextFoundation.LoggerPlugins.SqlLogger,HRC.Library"></logger>
-  <!--<logger TypeName ="MyTextLogger.TextLogger,MyTextLogger"></logger>-->
+  <!--<logger TypeName ="MyTextLogger.TextLogger,TextLoggerAddOn"></logger>-->
 </loggers>

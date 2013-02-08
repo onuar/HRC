@@ -93,9 +93,9 @@
       <Project>{d23cfca3-28ee-46b3-be33-7635c7a1c3eb}</Project>
       <Name>HRC.Library</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyTextLogger\MyTextLogger.csproj">
+    <ProjectReference Include="..\MyTextLogger\TextLoggerAddOn.csproj">
       <Project>{49bdff5f-cfab-4eef-a147-8735632b79c8}</Project>
-      <Name>MyTextLogger</Name>
+      <Name>TextLoggerAddOn</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

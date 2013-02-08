@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using HRC.Foundation.LogLibrary;
 
-namespace MyTextLogger
+namespace TextLoggerAddOn
 {
     public class TextLogger : LoggerBase
     {
@@ -14,7 +14,7 @@ namespace MyTextLogger
             using (TextWriter tw = File.AppendText("logs.txt"))
             {
                 //direkt context'i basarak
-                tw.WriteLine(DateTime.Now.ToString() + "=>" + context.ToString());
+                tw.WriteLine(DateTime.Now.ToString() + "=>" + context);
 
                 //kolonlar arasında dolaşarak
                 //foreach (var c in context.Values)
