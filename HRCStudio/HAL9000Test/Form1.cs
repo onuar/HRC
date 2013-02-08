@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using HRC.Library;
-using HRC.Foundation;
+using Entities;
 using HRC.Library.ContextFoundation;
+using HRC.Library.DatabaseObject.DatabaseSchema;
 
 namespace HAL9000Test
 {
@@ -43,6 +37,12 @@ namespace HAL9000Test
         private void Form1_Load(object sender, EventArgs e)
         {
             label1.Text = updateCounter.ToString();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var il = new Il { Ad = "hede" };
+            var schema = SchemaCollection.Instance.GetSchema(il);
         }
     }
 }
