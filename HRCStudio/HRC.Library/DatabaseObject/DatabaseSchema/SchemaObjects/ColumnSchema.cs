@@ -2,20 +2,21 @@
 using System;
 using HRC.Foundation.XmlLibrary;
 using HRC.Library.DBAccessLayer.Parameters;
+using HRC.Library.DatabaseObject.DatabaseSchema.SchemaBuilders.Interfaces;
 
-namespace HRC.Library.EntityLibrary.EntitySchemaOperations
+namespace HRC.Library.DatabaseObject.DatabaseSchema.SchemaObjects
 {
-    public class EntityColumnSchema
+    public class ColumnSchema
     {
-        public EntityColumnSchema(XmlNode node)
+        public ColumnSchema(IColumnSchemaBuilder columnSchemaBuilder)
         {
             try
             {
-                Name = XmlHelper.GetAttibuteValue<string>("Name", node);
-                ColumnName = XmlHelper.GetAttibuteValue<string>("ColumnName", node);
+                Name = columnSchemaBuilder.GetName();
+                ColumnName = columnSchemaBuilder.GetColumnName();
                 try
                 {
-                    IsIdentity = XmlHelper.GetAttibuteValue<bool>("IsIdentity", node);
+                    IsIdentity = columnSchemaBuilder.IsIdentity();
                 }
                 catch 
                 {
@@ -23,16 +24,16 @@ namespace HRC.Library.EntityLibrary.EntitySchemaOperations
                 }
                 try
                 {
-                    IsPrimary = XmlHelper.GetAttibuteValue<bool>("IsPrimary", node);
+                    IsPrimary = columnSchemaBuilder.IsPrimary();
                 }
                 catch 
                 {
                     IsPrimary = false;
                 }
-                
-                IsNull = XmlHelper.GetAttibuteValue<bool>("IsNull", node);
-                Size = XmlHelper.GetAttibuteValue<int>("Size", node);
-                ParameterType = XmlHelper.GetAttibuteValue<HRCParameterType>("Type", node);
+
+                IsNull = columnSchemaBuilder.IsNull();
+                Size = columnSchemaBuilder.GetSize();
+                ParameterType = columnSchemaBuilder.GetParameterType();
             }
             catch (Exception exp)
             {

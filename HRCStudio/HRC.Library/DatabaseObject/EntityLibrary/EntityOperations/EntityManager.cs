@@ -3,33 +3,34 @@ using System.Collections.Generic;
 using System;
 using System.Data.Common;
 using System.Data;
-using HRC.Library.EntityLibrary.EntityBase;
-using HRC.Library.EntityLibrary.EntitySchemaOperations;
+using HRC.Library.DatabaseObject.DatabaseSchema;
+using HRC.Library.DatabaseObject.DatabaseSchema.SchemaObjects;
+using HRC.Library.DatabaseObject.EntityLibrary.EntityBase;
 using HRC.Library.DBAccessLayer;
 using HRC.Library.DBAccessLayer.Parameters;
 
-namespace HRC.Library.EntityLibrary.EntityOperations
+namespace HRC.Library.DatabaseObject.EntityLibrary.EntityOperations
 {
     public class EntityManager
     {
         public static void Insert(BaseEntity entity)
         {
-            string insertSQL = "insert into {0} ({1}) values({2});";
+            string insertSql = "insert into {0} ({1}) values({2});";
 
-            StringBuilder sbColumnNames = new StringBuilder();
-            StringBuilder sbParameters = new StringBuilder();
+            var sbColumnNames = new StringBuilder();
+            var sbParameters = new StringBuilder();
 
-            EntityColumnSchema ic = null;
+            ColumnSchema ic = null;
 
-            using (DbManager db = new DbManager())
+            using (var db = new DbManager())
             {
-                EntitySchema schema = EntitySchemaCollection.Instance.GetSchema(entity.EntityName);
+                Schema schema = SchemaCollection.Instance.GetSchema(entity);
 
-                foreach (EntityColumnSchema column in schema.Columns.Values)
+                foreach (ColumnSchema column in schema.Columns.Values)
                 {
                     if (column.IsIdentity)
                     {
-                        insertSQL += "select scope_identity();";
+                        insertSql += "select scope_identity();";
                         ic = column;
                         continue;
                     }
@@ -41,7 +42,7 @@ namespace HRC.Library.EntityLibrary.EntityOperations
                     sbParameters.Append(",");
 
 
-                    HRCParameter p = new HRCParameter(
+                    var p = new HRCParameter(
                         column.ColumnName
                         , entity.GetValue<object>(column.ColumnName)
                         , column.ParameterType);
@@ -50,10 +51,10 @@ namespace HRC.Library.EntityLibrary.EntityOperations
                     db.Parameters.Add(p);
                 }
 
-                insertSQL = string.Format(insertSQL, schema.TableName, sbColumnNames.ToString().TrimEnd(','),
+                insertSql = string.Format(insertSql, schema.TableName, sbColumnNames.ToString().TrimEnd(','),
                     sbParameters.ToString().TrimEnd(','));
 
-                int id = db.ExecuteScalar<int>(insertSQL);
+                var id = db.ExecuteScalar<int>(insertSql);
                 if (ic != null)
                     entity.SetValue<int>(ic.ColumnName, id);
 
@@ -62,18 +63,16 @@ namespace HRC.Library.EntityLibrary.EntityOperations
 
         public static int Update(BaseEntity entity)
         {
-            string updateSQL = "update {0} set {1} where {2};";
+            string updateSql = "update {0} set {1} where {2};";
 
-            StringBuilder sbWhere = new StringBuilder();
-            StringBuilder sbParameters = new StringBuilder();
+            var sbWhere = new StringBuilder();
+            var sbParameters = new StringBuilder();
 
-            HRCParameter p = null;
-
-            using (DbManager db = new DbManager())
+            using (var db = new DbManager())
             {
-                EntitySchema schema = EntitySchemaCollection.Instance.GetSchema(entity.EntityName);
+                Schema schema = SchemaCollection.Instance.GetSchema(entity.EntityName);
 
-                foreach (EntityColumnSchema column in schema.Columns.Values)
+                foreach (ColumnSchema column in schema.Columns.Values)
                 {
                     if (entity.GetValue<object>(column.Name) == null)//TODO: test edilecek. object olarak getiriliyor her veri
                         continue;
@@ -97,7 +96,7 @@ namespace HRC.Library.EntityLibrary.EntityOperations
                         sbParameters.Append(",");
                     }
 
-                    p = new HRCParameter(
+                    var p = new HRCParameter(
                         column.ColumnName
                         , entity.GetValue<object>(column.ColumnName)
                         , column.ParameterType);
@@ -110,13 +109,13 @@ namespace HRC.Library.EntityLibrary.EntityOperations
                     throw new Exception("Update sorgusu için gerekli olan primary alanı bulunamadı.");
                 }
 
-                updateSQL = string.Format
-                    (updateSQL
+                updateSql = string.Format
+                    (updateSql
                     , schema.TableName
                     , sbParameters.ToString().TrimEnd(',')
-                    , sbWhere.ToString());
+                    , sbWhere);
 
-                return db.ExecuteNonQuery(updateSQL);
+                return db.ExecuteNonQuery(updateSql);
             }
         }
 
@@ -124,13 +123,13 @@ namespace HRC.Library.EntityLibrary.EntityOperations
         {
             string deleteSql = "Delete from {0} where {1};";
 
-            StringBuilder sbWhere = new StringBuilder();
+            var sbWhere = new StringBuilder();
 
-            using (DbManager db = new DbManager())
+            using (var db = new DbManager())
             {
-                EntitySchema schema = EntitySchemaCollection.Instance.GetSchema(entity.EntityName);
+                Schema schema = SchemaCollection.Instance.GetSchema(entity.EntityName);
 
-                EntityColumnSchema pk = schema.GetPrimaryColumn();
+                ColumnSchema pk = schema.GetPrimaryColumn();
                 if (pk == null)
                     throw new Exception("Delete işlemi için primary column bulunamadı.");
 
@@ -139,17 +138,17 @@ namespace HRC.Library.EntityLibrary.EntityOperations
                 sbWhere.Append("~");
                 sbWhere.Append(pk.ColumnName);
 
-                HRCParameter p = new HRCParameter(
+                var parameter = new HRCParameter(
                      pk.ColumnName
                      , entity.GetValue<object>(pk.ColumnName)
                      , pk.ParameterType);
 
-                db.Parameters.Add(p);
+                db.Parameters.Add(parameter);
 
                 deleteSql = string.Format
                     (deleteSql
                     , schema.TableName
-                    , sbWhere.ToString());
+                    , sbWhere);
 
                 return db.ExecuteNonQuery(deleteSql);
             }
@@ -159,15 +158,15 @@ namespace HRC.Library.EntityLibrary.EntityOperations
         {
             string deleteSql = "Delete from {0}";
 
-            StringBuilder sbWhere = new StringBuilder();
+            var sbWhere = new StringBuilder();
 
-            BaseEntity entity = Activator.CreateInstance<T>() as BaseEntity;
+            var entity = Activator.CreateInstance<T>() as BaseEntity;
 
             int affectedRowCount = 0;
 
-            using (DbManager db = new DbManager())
+            using (var db = new DbManager())
             {
-                EntitySchema schema = EntitySchemaCollection.Instance.GetSchema(entity.EntityName);
+                Schema schema = SchemaCollection.Instance.GetSchema(entity.EntityName);
 
                 deleteSql = string.Format
                         (deleteSql
@@ -187,7 +186,7 @@ namespace HRC.Library.EntityLibrary.EntityOperations
                         db.Parameters.Add(p);
                     }
 
-                    int andLastIndex = sbWhere.ToString().LastIndexOf(" AND ");
+                    int andLastIndex = sbWhere.ToString().LastIndexOf(" AND ", System.StringComparison.Ordinal);
                     deleteSql = deleteSql + sbWhere.ToString().Substring(0, andLastIndex);
                 }
 
@@ -199,11 +198,11 @@ namespace HRC.Library.EntityLibrary.EntityOperations
 
         public static List<T> LoadAllCustomQuery<T>(string query, params HRCParameter[] parameters) where T : new()
         {
-            object MyEntityBase = Activator.CreateInstance(typeof(T));
+            object myEntityBase = Activator.CreateInstance(typeof(T));
 
-            StringBuilder sbParameters = new StringBuilder();
+            var sbParameters = new StringBuilder();
 
-            using (DbManager dManager = new DbManager())
+            using (var dManager = new DbManager())
             {
                 foreach (HRCParameter prm in parameters)
                 {
@@ -216,30 +215,30 @@ namespace HRC.Library.EntityLibrary.EntityOperations
                     dManager.Parameters.Add(prm);
                 }
 
-                EntitySchema schema = EntitySchemaCollection.Instance.GetSchema(((BaseEntity)MyEntityBase).EntityName);
-                StringBuilder SelectQuery = new StringBuilder();
-                SelectQuery.Append(query);
+                Schema schema = SchemaCollection.Instance.GetSchema(((BaseEntity)myEntityBase).EntityName);
+                var selectQuery = new StringBuilder();
+                selectQuery.Append(query);
                 if (parameters.Length > 0)
                 {
-                    int andLastIndex = sbParameters.ToString().LastIndexOf(" AND ");
-                    string whereOrAnd = (SelectQuery.ToString().ToLower().Contains("where") ? " And " : " Where ");
-                    SelectQuery.AppendLine(string.Format(whereOrAnd + " {0}", sbParameters.ToString().Substring(0, andLastIndex)));
+                    int andLastIndex = sbParameters.ToString().LastIndexOf(" AND ", System.StringComparison.Ordinal);
+                    string whereOrAnd = (selectQuery.ToString().ToLower().Contains("where") ? " And " : " Where ");
+                    selectQuery.AppendLine(string.Format(whereOrAnd + " {0}", sbParameters.ToString().Substring(0, andLastIndex)));
                 }
 
-                DbDataReader dr = dManager.ExecuteReader(SelectQuery.ToString());
-                List<T> MyEntities = new List<T>();
+                DbDataReader dr = dManager.ExecuteReader(selectQuery.ToString());
+                var myEntities = new List<T>();
                 try
                 {
-                    BaseEntity eb = new BaseEntity(((BaseEntity)MyEntityBase).EntityName);
+                    var baseEntity = new BaseEntity(((BaseEntity)myEntityBase).EntityName);
                     while (dr.Read())
                     {
-                        MyEntityBase = new T();
-                        foreach (EntityColumnSchema sc in schema.Columns.Values)
+                        myEntityBase = new T();
+                        foreach (ColumnSchema sc in schema.Columns.Values)
                         {
-                            ((BaseEntity)MyEntityBase).SetValue(sc.Name, dr[sc.Name]);
+                            ((BaseEntity)myEntityBase).SetValue(sc.Name, dr[sc.Name]);
                         }
-                        object obj = Convert.ChangeType(MyEntityBase, typeof(T));
-                        MyEntities.Add((T)obj);
+                        object obj = Convert.ChangeType(myEntityBase, typeof(T));
+                        myEntities.Add((T)obj);
                     }
                 }
                 catch (Exception exp)
@@ -251,33 +250,33 @@ namespace HRC.Library.EntityLibrary.EntityOperations
                 {
                     dr.Dispose();
                 }
-                return MyEntities;
+                return myEntities;
             }
         }
 
         public static List<T> LoadAll<T>(string where) where T : new()
         {
-            object MyEntityBase = Activator.CreateInstance(typeof(T));
+            object myEntityBase = Activator.CreateInstance(typeof(T));
             string identityFieldName = string.Empty;
-            using (DbManager dManager = new DbManager())
+            using (var dManager = new DbManager())
             {
-                EntitySchema schema = EntitySchemaCollection.Instance.GetSchema(((BaseEntity)MyEntityBase).EntityName);
-                StringBuilder SelectQuery = new StringBuilder();
-                SelectQuery.AppendLine(string.Format("select * from {0} {1}", schema.TableName, where));
-                DbDataReader dr = dManager.ExecuteReader(SelectQuery.ToString());
-                List<T> MyEntities = new List<T>();
+                Schema schema = SchemaCollection.Instance.GetSchema(((BaseEntity)myEntityBase).EntityName);
+                var selectQuery = new StringBuilder();
+                selectQuery.AppendLine(string.Format("select * from {0} {1}", schema.TableName, where));
+                DbDataReader dr = dManager.ExecuteReader(selectQuery.ToString());
+                var myEntities = new List<T>();
                 try
                 {
-                    BaseEntity eb = new BaseEntity(((BaseEntity)MyEntityBase).EntityName);
+                    var baseEntity = new BaseEntity(((BaseEntity)myEntityBase).EntityName);
                     while (dr.Read())
                     {
-                        MyEntityBase = new T();
-                        foreach (EntityColumnSchema sc in schema.Columns.Values)
+                        myEntityBase = new T();
+                        foreach (ColumnSchema sc in schema.Columns.Values)
                         {
-                            ((BaseEntity)MyEntityBase).SetValue(sc.Name, dr[sc.Name]);
+                            ((BaseEntity)myEntityBase).SetValue(sc.Name, dr[sc.Name]);
                         }
-                        object obj = Convert.ChangeType(MyEntityBase, typeof(T));
-                        MyEntities.Add((T)obj);
+                        object obj = Convert.ChangeType(myEntityBase, typeof(T));
+                        myEntities.Add((T)obj);
                     }
                 }
                 catch (Exception exp)
@@ -289,17 +288,17 @@ namespace HRC.Library.EntityLibrary.EntityOperations
                 {
                     dr.Dispose();
                 }
-                return MyEntities;
+                return myEntities;
             }
         }
 
         public static List<T> LoadAll<T>(params HRCParameter[] parameters) where T : new()
         {
-            object MyEntityBase = Activator.CreateInstance(typeof(T));
+            object myEntityBase = Activator.CreateInstance(typeof(T));
 
-            StringBuilder sbParameters = new StringBuilder();
+            var sbParameters = new StringBuilder();
 
-            using (DbManager dManager = new DbManager())
+            using (var dManager = new DbManager())
             {
                 foreach (HRCParameter prm in parameters)
                 {
@@ -312,24 +311,24 @@ namespace HRC.Library.EntityLibrary.EntityOperations
                     dManager.Parameters.Add(prm);
                 }
 
-                EntitySchema schema = EntitySchemaCollection.Instance.GetSchema(((BaseEntity)MyEntityBase).EntityName);
-                StringBuilder SelectQuery = new StringBuilder();
-                int andLastIndex = sbParameters.ToString().LastIndexOf(" AND ");
-                SelectQuery.AppendLine(string.Format("select * from {0} Where {1}", schema.TableName, sbParameters.ToString().Substring(0, andLastIndex)));
-                DbDataReader dr = dManager.ExecuteReader(SelectQuery.ToString());
-                List<T> MyEntities = new List<T>();
+                Schema schema = SchemaCollection.Instance.GetSchema(((BaseEntity)myEntityBase).EntityName);
+                var selectQuery = new StringBuilder();
+                int andLastIndex = sbParameters.ToString().LastIndexOf(" AND ", System.StringComparison.Ordinal);
+                selectQuery.AppendLine(string.Format("select * from {0} Where {1}", schema.TableName, sbParameters.ToString().Substring(0, andLastIndex)));
+                DbDataReader dr = dManager.ExecuteReader(selectQuery.ToString());
+                var myEntities = new List<T>();
                 try
                 {
-                    BaseEntity eb = new BaseEntity(((BaseEntity)MyEntityBase).EntityName);
+                    var baseEntity = new BaseEntity(((BaseEntity)myEntityBase).EntityName);
                     while (dr.Read())
                     {
-                        MyEntityBase = new T();
-                        foreach (EntityColumnSchema sc in schema.Columns.Values)
+                        myEntityBase = new T();
+                        foreach (ColumnSchema sc in schema.Columns.Values)
                         {
-                            ((BaseEntity)MyEntityBase).SetValue(sc.Name, dr[sc.Name]);
+                            ((BaseEntity)myEntityBase).SetValue(sc.Name, dr[sc.Name]);
                         }
-                        object obj = Convert.ChangeType(MyEntityBase, typeof(T));
-                        MyEntities.Add((T)obj);
+                        object obj = Convert.ChangeType(myEntityBase, typeof(T));
+                        myEntities.Add((T)obj);
                     }
                 }
                 catch (Exception exp)
@@ -341,7 +340,7 @@ namespace HRC.Library.EntityLibrary.EntityOperations
                 {
                     dr.Dispose();
                 }
-                return MyEntities;
+                return myEntities;
             }
         }
 
@@ -360,29 +359,29 @@ namespace HRC.Library.EntityLibrary.EntityOperations
 
         public static T Load<T>(string where) where T : new()
         {
-            object MyEntityBase = Activator.CreateInstance(typeof(T));
+            object myEntityBase = Activator.CreateInstance(typeof(T));
             string identityFieldName = string.Empty;
-            using (DbManager dManager = new DbManager())
+            using (var dManager = new DbManager())
             {
 
-                EntitySchema schema = EntitySchemaCollection.Instance.GetSchema(((BaseEntity)MyEntityBase).EntityName);
-                StringBuilder SelectQuery = new StringBuilder();
+                Schema schema = SchemaCollection.Instance.GetSchema(((BaseEntity)myEntityBase).EntityName);
+                var SelectQuery = new StringBuilder();
                 SelectQuery.AppendLine(string.Format("select * from {0} {1}", schema.TableName, where));
                 DbDataReader dr = dManager.ExecuteReader(SelectQuery.ToString());
                 try
                 {
 
-                    List<T> MyEntities = new List<T>();
-                    BaseEntity eb = new BaseEntity(((BaseEntity)MyEntityBase).EntityName);
+                    var myEntities = new List<T>();
+                    var baseEntity = new BaseEntity(((BaseEntity)myEntityBase).EntityName);
                     while (dr.Read())
                     {
-                        MyEntityBase = new T();
-                        foreach (EntityColumnSchema sc in schema.Columns.Values)
+                        myEntityBase = new T();
+                        foreach (ColumnSchema sc in schema.Columns.Values)
                         {
 
-                            ((BaseEntity)MyEntityBase).SetValue(sc.Name, dr[sc.Name]);
+                            ((BaseEntity)myEntityBase).SetValue(sc.Name, dr[sc.Name]);
                         }
-                        object obj = Convert.ChangeType(MyEntityBase, typeof(T));
+                        object obj = Convert.ChangeType(myEntityBase, typeof(T));
                         return ((T)obj);
                     }
                     return new T();
