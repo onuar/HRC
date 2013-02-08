@@ -15,7 +15,7 @@ namespace HRC.Library.DatabaseObject.DatabaseSchema.SchemaBuilders.EntitySchema
 
         public string GetTableName()
         {
-            return XmlHelper.GetAttibuteValue<string>("Name", _schemaNode);
+            return XmlHelper.GetAttibuteValue<string>("TableName", _schemaNode);
         }
 
         public string GetName()
