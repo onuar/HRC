@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using HRC.Foundation.ConvertionLibrary;
 
-namespace HRC.Library.EntityLibrary.EntityBase
+namespace HRC.Library.DatabaseObject.EntityLibrary.EntityBase
 {
     public class BaseEntity
     {
         public BaseEntity()
-        {
-
-        }
+        { }
 
         public BaseEntity(string name)
         {
@@ -23,8 +19,7 @@ namespace HRC.Library.EntityLibrary.EntityBase
         public string TableName { get; set; }
 
 
-
-        Dictionary<string, EntityColumn> _columns = new Dictionary<string, EntityColumn>();
+        readonly Dictionary<string, EntityColumn> _columns = new Dictionary<string, EntityColumn>();
         public void SetValue<T>(string columnName, T a)
         {
             if (_columns.ContainsKey(columnName))
@@ -37,8 +32,7 @@ namespace HRC.Library.EntityLibrary.EntityBase
             }
             else
             {
-                EntityColumn cv = new EntityColumn();
-                cv.CurrentValue = a;
+                var cv = new EntityColumn { CurrentValue = a };
                 _columns.Add(columnName, cv);
             }
         }
@@ -55,11 +49,13 @@ namespace HRC.Library.EntityLibrary.EntityBase
 
         internal Dictionary<string, EntityColumn> GetChangedColumns()
         {
-            Dictionary<string, EntityColumn> columns = new Dictionary<string, EntityColumn>();
+            var columns = new Dictionary<string, EntityColumn>();
             foreach (var col in _columns)
             {
                 if (col.Value.IsChanged)
+                {
                     columns.Add(col.Key, col.Value);
+                }
             }
 
             return columns;
