@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using HRC.Foundation.ConvertionLibrary;
 using HRC.Foundation.LogLibrary;
-using HRC.Library.EntityLibrary.EntityBase;
-using HRC.Library.EntityLibrary.EntityOperations;
+using HRC.Library.DatabaseObject.EntityLibrary.EntityBase;
+using HRC.Library.DatabaseObject.EntityLibrary.EntityOperations;
 
 namespace HRC.Library.ContextFoundation.LoggerPlugins
 {
@@ -13,11 +11,11 @@ namespace HRC.Library.ContextFoundation.LoggerPlugins
     {
         protected override void WriteInternal(LogContext context)
         {
-            List<BaseEntity> logEntities = new List<BaseEntity>();
+            var logEntities = new List<BaseEntity>();
             foreach (var c in context.Values)
             {
                 BaseEntity logEntity = new BaseEntity() { EntityName = "DataLog" };
-                ChangedEntityColumn ec = (ChangedEntityColumn)c.Value;
+                var ec = (ChangedEntityColumn)c.Value;
                 logEntity.SetValue<DateTime>("ModifiedDate", DateTime.Now);
                 logEntity.SetValue<string>("EntityName", context.EntityName);
                 logEntity.SetValue<string>("TableName", context.TableName);

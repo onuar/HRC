@@ -9,13 +9,13 @@ namespace HRC.Foundation.AttributeLibrary
     {
         public static List<TAttributeType> GetInterfacesMethodsAttributes<TAttributeType>(Type objType)
         {
-            List<TAttributeType> l;
+            List<TAttributeType> attributeCollection;
             foreach (var item in objType.GetInterfaces())
             {
-                foreach (var m in item.GetMethods())
+                foreach (var methodInfo in item.GetMethods())
                 {
 
-                    var atts = m.GetCustomAttributes(typeof(TAttributeType), true);
+                    var methodAttributes = methodInfo.GetCustomAttributes(typeof(TAttributeType), true);
                 }
             }
 
@@ -26,6 +26,12 @@ namespace HRC.Foundation.AttributeLibrary
         {
             object[] attributes = methodBase.GetCustomAttributes(typeof(TAttributeType), true);
             return attributes.Cast<TAttributeType>();
+        }
+
+        public static IEnumerable<TAttributeType> GetCustomAttributes<TAttributeType>(Type objectType)
+        {
+            object[] attributes = objectType.GetCustomAttributes(typeof(TAttributeType), true);
+            return attributes.Cast<TAttributeType>().ToList();
         }
     }
 }

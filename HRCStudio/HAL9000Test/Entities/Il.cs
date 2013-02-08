@@ -1,6 +1,5 @@
 ﻿using System;
-using HRC.Library.EntityLibrary.EntityBase;
-using HRC.Foundation.ConvertionLibrary;
+using HRC.Library.DatabaseObject.EntityLibrary.EntityBase;
 
 namespace Entities
 {
