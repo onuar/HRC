@@ -1,5 +1,5 @@
 ﻿using System;
-using HRC.Library.DatabaseObject.EntityLibrary.EntityOperations;
+using HRC.Library.DatabaseObject.DatabaseSchema.Operations;
 
 namespace HAL9000Test
 {
@@ -9,12 +9,12 @@ namespace HAL9000Test
 
         public void Insert(Entities.Il il)
         {
-            EntityManager.Insert(il);
+            DbObjectOperationManager.Instance.Insert(il);
         }
 
         public void Update(Entities.Il il)
         {
-            EntityManager.Update(il);
+            DbObjectOperationManager.Instance.Update(il);
         }
 
         public void Delete(Entities.Il il)

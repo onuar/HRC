@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using HRC.Foundation.ConvertionLibrary;
 using HRC.Foundation.LogLibrary;
+using HRC.Library.DatabaseObject.DatabaseSchema.Operations;
 using HRC.Library.DatabaseObject.EntityLibrary.EntityBase;
-using HRC.Library.DatabaseObject.EntityLibrary.EntityOperations;
 
 namespace HRC.Library.ContextFoundation.LoggerPlugins
 {
@@ -25,7 +25,7 @@ namespace HRC.Library.ContextFoundation.LoggerPlugins
                 logEntities.Add(logEntity);
 
                 //todo@onuar: transaction
-                EntityManager.Insert(logEntity);
+                DbObjectOperationManager.Instance.Insert(logEntity);
             }
         }
     }

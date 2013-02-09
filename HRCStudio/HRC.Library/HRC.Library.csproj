@@ -76,7 +76,8 @@
     <Compile Include="DatabaseObject\DatabaseSchema\SchemaObjects\Schema.cs" />
     <Compile Include="DatabaseObject\EntityLibrary\EntityBase\BaseEntity.cs" />
     <Compile Include="DatabaseObject\EntityLibrary\EntityBase\EntityColumn.cs" />
-    <Compile Include="DatabaseObject\EntityLibrary\EntityOperations\EntityManager.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\Operations\DbObjectOperationManager.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\Operations\IDbObjectOperationManager.cs" />
     <Compile Include="DBAccessLayer\DbManager.cs" />
     <Compile Include="DBAccessLayer\Factories\HRCDbFactory.cs" />
     <Compile Include="DBAccessLayer\Factories\HRCDbProvider.cs" />

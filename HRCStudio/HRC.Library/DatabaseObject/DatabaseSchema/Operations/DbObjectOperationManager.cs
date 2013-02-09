@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System;
 using System.Data.Common;
 using System.Data;
-using HRC.Library.DatabaseObject.DatabaseSchema;
 using HRC.Library.DatabaseObject.DatabaseSchema.SchemaObjects;
 using HRC.Library.DatabaseObject.EntityLibrary.EntityBase;
 using HRC.Library.DBAccessLayer;
 using HRC.Library.DBAccessLayer.Parameters;
 
-namespace HRC.Library.DatabaseObject.EntityLibrary.EntityOperations
+namespace HRC.Library.DatabaseObject.DatabaseSchema.Operations
 {
-    public class EntityManager
+    public class DbObjectOperationManager : IDbObjectOperationManager
     {
-        public static void Insert(BaseEntity entity)
+        private static readonly Lazy<IDbObjectOperationManager> _instance = new Lazy<IDbObjectOperationManager>(() => new DbObjectOperationManager(), true);
+        public static IDbObjectOperationManager Instance
+        {
+            get { return _instance.Value; }
+        }
+
+        public void Insert(BaseEntity entity)
         {
             string insertSql = "insert into {0} ({1}) values({2});";
 
@@ -61,7 +66,7 @@ namespace HRC.Library.DatabaseObject.EntityLibrary.EntityOperations
             }
         }
 
-        public static int Update(BaseEntity entity)
+        public int Update(BaseEntity entity)
         {
             string updateSql = "update {0} set {1} where {2};";
 
@@ -119,7 +124,7 @@ namespace HRC.Library.DatabaseObject.EntityLibrary.EntityOperations
             }
         }
 
-        public static int Delete(BaseEntity entity)
+        public int Delete(BaseEntity entity)
         {
             string deleteSql = "Delete from {0} where {1};";
 
@@ -154,7 +159,7 @@ namespace HRC.Library.DatabaseObject.EntityLibrary.EntityOperations
             }
         }
 
-        public static int Delete<T>(params HRCParameter[] parameters) where T : new()
+        public int Delete<T>(params HRCParameter[] parameters) where T : new()
         {
             string deleteSql = "Delete from {0}";
 
@@ -196,7 +201,7 @@ namespace HRC.Library.DatabaseObject.EntityLibrary.EntityOperations
             return affectedRowCount;
         }
 
-        public static List<T> LoadAllCustomQuery<T>(string query, params HRCParameter[] parameters) where T : new()
+        public List<T> LoadAllCustomQuery<T>(string query, params HRCParameter[] parameters) where T : new()
         {
             object myEntityBase = Activator.CreateInstance(typeof(T));
 
@@ -254,7 +259,7 @@ namespace HRC.Library.DatabaseObject.EntityLibrary.EntityOperations
             }
         }
 
-        public static List<T> LoadAll<T>(string where) where T : new()
+        public List<T> LoadAll<T>(string where) where T : new()
         {
             object myEntityBase = Activator.CreateInstance(typeof(T));
             string identityFieldName = string.Empty;
@@ -292,7 +297,7 @@ namespace HRC.Library.DatabaseObject.EntityLibrary.EntityOperations
             }
         }
 
-        public static List<T> LoadAll<T>(params HRCParameter[] parameters) where T : new()
+        public List<T> LoadAll<T>(params HRCParameter[] parameters) where T : new()
         {
             object myEntityBase = Activator.CreateInstance(typeof(T));
 
@@ -344,7 +349,7 @@ namespace HRC.Library.DatabaseObject.EntityLibrary.EntityOperations
             }
         }
 
-        public static List<T> LoadAll<T>() where T : new()
+        public List<T> LoadAll<T>() where T : new()
         {
             try
             {
@@ -357,7 +362,7 @@ namespace HRC.Library.DatabaseObject.EntityLibrary.EntityOperations
             }
         }
 
-        public static T Load<T>(string where) where T : new()
+        public T Load<T>(string where) where T : new()
         {
             object myEntityBase = Activator.CreateInstance(typeof(T));
             string identityFieldName = string.Empty;
@@ -399,7 +404,7 @@ namespace HRC.Library.DatabaseObject.EntityLibrary.EntityOperations
 
         }
 
-        public static DataTable ExecuteDataTable(string query, params HRCParameter[] parameters)
+        public DataTable ExecuteDataTable(string query, params HRCParameter[] parameters)
         {
             DataTable dt = new DataTable();
 
