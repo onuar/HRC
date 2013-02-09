@@ -22,7 +22,7 @@ namespace HAL9000Test
 
             //classic
             //IIlBusiness ilb = HRC.Library.ContextFoundation.ProxyGenerator<IlBusiness, IIlBusiness>.GetProxy();
-
+            //Test for github connection
             //cache
             IIlBusiness ilb = ProxyHelper<IlBusiness, IIlBusiness>.Instance.AddOrGet();
             ilb.DoSomething(il);
