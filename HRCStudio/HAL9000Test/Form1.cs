@@ -16,9 +16,7 @@ namespace HAL9000Test
         private void button1_Click(object sender, EventArgs e)
         {
             this.Text = "processing";
-            Entities.Il il = new Entities.Il();
-            il.Ad = "proxy tester";
-            il.Aktif = true;
+            var il = new Il { Ad = "proxy tester", Aktif = true };
 
             //classic
             //IIlBusiness ilb = HRC.Library.ContextFoundation.ProxyGenerator<IlBusiness, IIlBusiness>.GetProxy();

@@ -58,6 +58,7 @@
     <Compile Include="DatabaseObject\Attributes\PrimaryKeyAttribute.cs" />
     <Compile Include="DatabaseObject\Attributes\TableNameAttribute.cs" />
     <Compile Include="DatabaseObject\DatabaseSchema\EntitySchemaOperations\EntitySchemaBuilder.cs" />
+    <Compile Include="DatabaseObject\DatabaseSchema\Operations\PetaPocoOperation.cs" />
     <Compile Include="DatabaseObject\DatabaseSchema\PocoSchemaOperations\PocoSchemaBuilder.cs" />
     <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\EntitySchema\ColumnCollectionSchemaBuilder.cs" />
     <Compile Include="DatabaseObject\DatabaseSchema\SchemaBuilders\EntitySchema\ColumnSchemaBuilder.cs" />

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace HRC.Library.ContextFoundation
 {
@@ -13,8 +11,8 @@ namespace HRC.Library.ContextFoundation
 
         }
 
-        static Lazy<ProxyHelper<TOrginal, TInterface>> _instance =
-            new Lazy<ProxyHelper<TOrginal, TInterface>>(() => { return new ProxyHelper<TOrginal, TInterface>(); }, true);
+        static readonly Lazy<ProxyHelper<TOrginal, TInterface>> _instance =
+            new Lazy<ProxyHelper<TOrginal, TInterface>>(() => new ProxyHelper<TOrginal, TInterface>(), true);
         public static ProxyHelper<TOrginal, TInterface> Instance
         {
             get
