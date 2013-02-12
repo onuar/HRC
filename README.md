@@ -1,4 +1,4 @@
-hrc
+Hard Rock Coded
 ===
 
-miniorm
+miniminiorm
