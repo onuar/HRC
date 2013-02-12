@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace HRC.Library.ContextFoundation
 {
-    public class ProxyHelper<TOrginal, TInterface> : Dictionary<string, TInterface>
-         where TOrginal : new()
+    public class ProxyHelper<TInterface, TConcrete> : Dictionary<string, TInterface>
+         where TConcrete : new()
     {
         private ProxyHelper()
         {
 
         }
 
-        static readonly Lazy<ProxyHelper<TOrginal, TInterface>> _instance =
-            new Lazy<ProxyHelper<TOrginal, TInterface>>(() => new ProxyHelper<TOrginal, TInterface>(), true);
-        public static ProxyHelper<TOrginal, TInterface> Instance
+        private static readonly Lazy<ProxyHelper<TInterface, TConcrete>> _instance =
+            new Lazy<ProxyHelper<TInterface, TConcrete>>(() => new ProxyHelper<TInterface, TConcrete>(), true);
+        public static ProxyHelper<TInterface, TConcrete> Instance
         {
             get
             {
@@ -26,7 +26,7 @@ namespace HRC.Library.ContextFoundation
             string key = typeof(TInterface).ToString();
             if (!this.ContainsKey(key))
             {
-                TInterface intf = ProxyGenerator<TOrginal, TInterface>.GetProxy();
+                TInterface intf = ProxyGenerator<TInterface, TConcrete>.GetProxy();
                 this.Add(key, intf);
             }
             return this[key];

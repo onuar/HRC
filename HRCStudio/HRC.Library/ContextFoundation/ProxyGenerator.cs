@@ -10,39 +10,39 @@ using HRC.Library.ContextFoundation.Aspects.BusinessAspects;
 
 namespace HRC.Library.ContextFoundation
 {
-    internal class ProxyGenerator<TOrginal, IInterface> : RealProxy
-        where TOrginal : new()
+    internal class ProxyGenerator<TInterface, TConcrete> : RealProxy
+        where TConcrete : new()
     {
-        TOrginal _org;
+        readonly TConcrete _orginal;
 
-        private ProxyGenerator(TOrginal t)
-            : base(typeof(IInterface))
+        private ProxyGenerator(TConcrete t)
+            : base(typeof(TInterface))
         {
-            _org = t;
+            _orginal = t;
         }
 
-        public static IInterface GetProxy()
+        public static TInterface GetProxy()
         {
-            TOrginal d = new TOrginal();
-            ProxyGenerator<TOrginal, IInterface> p = new ProxyGenerator<TOrginal, IInterface>(d);
-            return (IInterface)p.GetTransparentProxy();
+            var d = new TConcrete();
+            var p = new ProxyGenerator<TInterface, TConcrete>(d);
+            return (TInterface)p.GetTransparentProxy();
         }
 
         public override IMessage Invoke(System.Runtime.Remoting.Messaging.IMessage msg)
         {
-            IMethodCallMessage method = msg as IMethodCallMessage;
+            var method = msg as IMethodCallMessage;
             if (method == null)
                 throw new Exception("Method not found!");
 
             object returnValue = null;
 
             IEnumerable<BusinessAspectBase> attributes = Foundation.AttributeLibrary.AttributeHelper.GetMethodAttributes<BusinessAspectBase>(method.MethodBase);
-            AspectContext context = new AspectContext() { Method = method };
+            var context = new AspectContext() { Method = method };
 
             try
             {
                 IterateAttributesAndReturnTrueIfCancel<WorksBeforeAttribute>(context, attributes);
-                returnValue = method.MethodBase.Invoke(_org, method.Args);
+                returnValue = method.MethodBase.Invoke(_orginal, method.Args);
                 IterateAttributesAndReturnTrueIfCancel<WorksAfterAttribute>(context, attributes);
             }
             catch (Exception exp)
@@ -50,7 +50,7 @@ namespace HRC.Library.ContextFoundation
                 IterateAttributesAndReturnTrueIfCancel<WorksOnExceptionAttribute>(context, attributes, exp);
             }
 
-            ReturnMessage rm = new ReturnMessage(returnValue, null, 0, method.LogicalCallContext, method);
+            var rm = new ReturnMessage(returnValue, null, 0, method.LogicalCallContext, method);
             return rm;
         }
 
@@ -67,7 +67,7 @@ namespace HRC.Library.ContextFoundation
 
         private List<MethodInfo> GetAllMethodsInType<TAspectOrder>(IEnumerable<BusinessAspectBase> attributes)
         {
-            List<MethodInfo> methodInfos = new List<MethodInfo>();
+            var methodInfos = new List<MethodInfo>();
             foreach (var att in attributes)
             {
                 foreach (var m in att.GetType().GetMethods().Where(m => m.GetCustomAttributes(typeof(TAspectOrder), true).Length > 0).ToList())

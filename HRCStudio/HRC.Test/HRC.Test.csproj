@@ -53,8 +53,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DumbObjects\HrcInjectorTestObject.cs" />
+    <Compile Include="DumbObjects\HrcInjectorTestObject2.cs" />
     <Compile Include="HrcInjectorTests.cs" />
+    <Compile Include="DumbObjects\HrcTestObject.cs" />
+    <Compile Include="DumbObjects\IHrcInjectorTestObject.cs" />
+    <Compile Include="DumbObjects\IHrcTestObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -63,6 +69,10 @@
     <ProjectReference Include="..\HRC.Foundation\HRC.Foundation.csproj">
       <Project>{C1291A87-266E-40BD-8D1D-E5A1B3C495B8}</Project>
       <Name>HRC.Foundation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HRC.Library\HRC.Library.csproj">
+      <Project>{D23CFCA3-28EE-46B3-BE33-7635C7A1C3EB}</Project>
+      <Name>HRC.Library</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

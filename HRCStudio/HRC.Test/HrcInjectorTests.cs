@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HRC.Foundation.DependencyInjection;
+using HRC.Test.DumbObjects;
 using NUnit.Framework;
 
 namespace HRC.Test
@@ -59,40 +60,6 @@ namespace HRC.Test
 
             var result = injector.Resolve(typeof(IHrcTestObject));//injector.Resolve<IHrcTestObject>();
             Assert.IsAssignableFrom<IHrcTestObject>(result);
-        }
-    }
-
-    public interface IHrcInjectorTestObject
-    {
-        string Name { get; set; }
-    }
-
-    public class HrcInjectorTestObject : IHrcInjectorTestObject
-    {
-        public string Name { get; set; }
-    }
-
-    public class HrcInjectorTestObject2 : IHrcInjectorTestObject
-    {
-        public string Name { get; set; }
-    }
-
-    public interface IHrcTestObject
-    {
-    }
-
-    public class HrcTestObject : IHrcTestObject
-    {
-        private readonly IHrcInjectorTestObject _injectorTestObject;
-
-        public HrcTestObject(IHrcInjectorTestObject injectorTestObject)
-        {
-            _injectorTestObject = injectorTestObject;
-        }
-
-        public string ShoutName()
-        {
-            return _injectorTestObject.Name;
         }
     }
 }

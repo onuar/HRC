@@ -90,6 +90,7 @@
     <Compile Include="DBAccessLayer\Parameters\HRCParameter.cs" />
     <Compile Include="DBAccessLayer\Parameters\HRCParameterOperator.cs" />
     <Compile Include="DBAccessLayer\Parameters\HRCParameterType.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
