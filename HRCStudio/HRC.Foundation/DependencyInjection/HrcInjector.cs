@@ -1,31 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 
 namespace HRC.Foundation.DependencyInjection
 {
     public class HrcInjector : IInjectionContainer
     {
         private readonly Dictionary<Type, Func<object>> _providers = new Dictionary<Type, Func<object>>();
+
         public void Bind<TKey, TConcrete>() where TConcrete : TKey
         {
             _providers[typeof(TKey)] = () => ResolveByType(typeof(TConcrete));
-        }
-
-        public object ResolveByType(Type type)
-        {
-            var constructor = type.GetConstructors().SingleOrDefault();
-            if (constructor != null)
-            {
-                var arguments =
-                    constructor.GetParameters()
-                    .Select(p => Resolve(p.ParameterType)).ToArray();
-
-                return constructor.Invoke(arguments);
-            }
-            var instanceField = type.GetField("Instance");
-            return instanceField.GetValue(null);
         }
 
         public void Bind<T>(T instance)
@@ -38,7 +24,7 @@ namespace HRC.Foundation.DependencyInjection
             return (TKey)Resolve(typeof(TKey));
         }
 
-        private object Resolve(Type type)
+        public object Resolve(Type type)
         {
             Func<object> provider;
             if (_providers.TryGetValue(type, out provider))
@@ -46,6 +32,25 @@ namespace HRC.Foundation.DependencyInjection
                 return provider();
             }
             return ResolveByType(type);
+        }
+
+        private object ResolveByType(Type type)
+        {
+            var constructor = type.GetConstructors().SingleOrDefault();
+            if (constructor != null)
+            {
+                var arguments =
+                    constructor.GetParameters()
+                    .Select(p => Resolve(p.ParameterType)).ToArray();
+
+                return constructor.Invoke(arguments);
+            }
+            var instanceProperty = type.GetProperty("Instance", BindingFlags.Static | BindingFlags.Public);
+            if (instanceProperty == null)
+            {
+                return Activator.CreateInstance(type);
+            }
+            return instanceProperty.GetValue(null, null);
         }
     }
 }

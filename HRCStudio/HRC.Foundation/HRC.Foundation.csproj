@@ -52,6 +52,8 @@
     <Compile Include="ConfigLibrary\XmlReader.cs" />
     <Compile Include="ConvertionLibrary\ConvertionHelper.cs" />
     <Compile Include="ConvertionLibrary\EnumOperations.cs" />
+    <Compile Include="DependencyInjection\HrcInjector.cs" />
+    <Compile Include="DependencyInjection\IInjectionContainer.cs" />
     <Compile Include="ExceptionLibrary\Actions\ActionBase.cs" />
     <Compile Include="ExceptionLibrary\Actions\AllAction.cs" />
     <Compile Include="ExceptionLibrary\Actions\ChainAction.cs" />
