@@ -21,7 +21,7 @@ namespace HAL9000Test
             //classic
             //IIlBusiness ilb = HRC.Library.ContextFoundation.ProxyGenerator<IlBusiness, IIlBusiness>.GetProxy();
             //cache
-            IIlBusiness ilb = ProxyHelper<IlBusiness, IIlBusiness>.Instance.AddOrGet();
+            IIlBusiness ilb = ProxyHelper<IIlBusiness, IlBusiness>.Instance.AddOrGet();
             ilb.DoSomething(il);
 
             this.Text = "process completed";

@@ -34,7 +34,7 @@ namespace HAL9000Test
             Random r = new Random();
             il.Ad = "changed #" + r.Next(10, 100); ;
 
-            HRC.Library.ContextFoundation.ProxyHelper<IlBusiness, IIlBusiness>.Instance.AddOrGet().Update(il);
+            HRC.Library.ContextFoundation.ProxyHelper<IIlBusiness, IlBusiness>.Instance.AddOrGet().Update(il);
         }
 
         #endregion
